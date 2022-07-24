@@ -80,7 +80,6 @@
 					<tr>
 						<th scope="col">id</th>
 						<th scope="col">twintwoName</th>
-						<!-- <th scope="col">actions</th> -->
 					</tr>
 				</thead>
 				<tbody>

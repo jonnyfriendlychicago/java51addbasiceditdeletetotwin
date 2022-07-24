@@ -17,19 +17,21 @@ public class TwintwoSrv {
 	
 	public TwintwoSrv (TwintwoRpo twintwoRpo) {this.twintwoRpo = twintwoRpo;}
 	
-	// creates one twintwo >> rename as createNew
-	public TwintwoMdl addTwintwo(TwintwoMdl x) {
+	// creates one twintwo 
+//	public TwintwoMdl addTwintwo(TwintwoMdl x) {
+	public TwintwoMdl create(TwintwoMdl x) {
 		return twintwoRpo.save(x);
 	}
 
-	// updates one twintwo >> rename as update
-	public TwintwoMdl updateTwintwo(TwintwoMdl x) {
+	// updates one twintwo 
+	public TwintwoMdl update(TwintwoMdl x) {
 		return twintwoRpo.save(x);
 	}
 	
 	// delete twintwo by id >> rename as delete
 	// JRF: this srv is very different from myu publicationSrv.delete.  what gives? 
-	public void deleteTwintwo(TwintwoMdl x) {
+//	public void deleteTwintwo(TwintwoMdl x) {
+	public void delete(TwintwoMdl x) {
 		twintwoRpo.delete(x);
 	}
 	
@@ -57,6 +59,12 @@ public class TwintwoSrv {
 	// get all un-joined twinone >> rename as returnNotJoinedTwinone
 	public List<TwintwoMdl> getUnassignedTwinones(TwinoneMdl x){
 		return twintwoRpo.findByTwinoneMdlNotContains(x);
+	}
+	
+	public void removeTwintwoTwinoneJoin(TwinoneMdl c, TwintwoMdl p ) {
+		List<TwinoneMdl> twinoneList = p.getTwinoneMdl(); 
+		twinoneList.remove(c); 
+		this.twintwoRpo.save(p); 
 	}
 	
 // end srv

@@ -19,6 +19,7 @@
 --%>
 		<div id=about class="card">
 			
+			<%-- <form:form action='/twinone/${twinone.id}' method='post' modelAttribute='twinone'> --%>
 			<form:form action='/twinone/${twinone.id}/edit' method='post' modelAttribute='twinone'>
 	
 				<form:input type="hidden" value="${twinone.id}" path="id" />
@@ -94,7 +95,7 @@
 								    <input type="hidden" name="_method" value="delete">
 								    <input type="hidden" name="twintwoId" value="${record.id}"/>
 								    <input type="hidden" name="twinoneId" value="${twinone.id}"/>
-								    <input type="hidden" name="origin" value="1"/>
+								    <!-- <input type="hidden" name="origin" value="1"/> -->
 								    
 								    <button class="btn btn-danger">Delete</button>
 								</form>
@@ -109,7 +110,7 @@
 
 		<div id=form class="card">
 			<h2>Add a Twintwo:</h2>
-			<form action='/twinone/${twinone.id}' method='post' >
+			<form action='/twinone/${twinone.id}/editTwintwoJoins' method='post' >
 				<div class="form-group">
 					<select name="twintwoId"> 
 						<c:forEach var="record" items="${unassignedCategories}">

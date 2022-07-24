@@ -271,9 +271,10 @@ public class PublicationCtl {
 		System.out.println("userId: " + userId); 
 		
 //		if(intVar.getUserMdl().getId() != userId) {
-//			redirectAttributes.addFlashAttribute("mgmtPermissionErrorMsg", "Only the creator of a record can edit it.");
-//			return "redirect:/publication";
-//		}
+		if(!intVar.getUserMdl().getId().equals(userId)) {
+			redirectAttributes.addFlashAttribute("mgmtPermissionErrorMsg", "Only the creator of a record can edit it.");
+			return "redirect:/publication";
+		}
 		
 		if (result.hasErrors()) { 
 			

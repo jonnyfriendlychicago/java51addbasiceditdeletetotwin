@@ -15,9 +15,7 @@ public interface TwinoneRpo extends CrudRepository<TwinoneMdl, Long> {
 	
 	TwinoneMdl findByIdIs(Long id);
 	
-//	List<TwinoneMdl> findAllByCategories(TwintwoMdl twintwoMdl);
 	List<TwinoneMdl> findAllByTwintwoMdl(TwintwoMdl twintwoMdl);
 	
-//	List<TwinoneMdl> findByCategoriesNotContains(TwintwoMdl twintwoMdl);
 	List<TwinoneMdl> findByTwintwoMdlNotContains(TwintwoMdl twintwoMdl);
 }
