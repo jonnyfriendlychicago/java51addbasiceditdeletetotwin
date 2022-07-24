@@ -164,22 +164,30 @@ public class TwinoneCtl {
 //			redirectAttributes.addFlashAttribute("mgmtPermissionErrorMsg", "Only the creator of a record can edit it.");
 //			return "redirect:/publication";
 //		}
+		TwinoneMdl intVar = twinoneSrv.findById(twinoneId);
 		
 		if (result.hasErrors()) { 
-		
+			
+			System.out.println("damn, we in hasErrors flow");
+			
+			System.out.println("result.rejectValuestuff: " + result.getAllErrors().toString());
+			
+			
             Long userId = (Long) session.getAttribute("userId");
             model.addAttribute("user", userSrv.findById(userId));
             
             // pre-populates the values in the management interface
-            TwinoneMdl intVar = twinoneSrv.findById(twinoneId);
             
-            // model.addAttribute("twinone", intVar);
+//            model.addAttribute("twinone", intVar);
             model.addAttribute("assignedCategories", twintwoSrv.getAssignedTwinones(intVar));
             model.addAttribute("unassignedCategories", twintwoSrv.getUnassignedTwinones(intVar));
 
 			return "twinone/edit.jsp";
 		} else {
+			
+			twinoneMdl.setTwintwoMdl(twintwoSrv.getAssignedTwinones(intVar)); 
 			twinoneSrv.update(twinoneMdl);
+			
 			return "redirect:/twinone/" + twinoneId;
 		}
 	}
@@ -212,7 +220,8 @@ public class TwinoneCtl {
 		model.addAttribute("assignedCategories", twintwoSrv.getAssignedTwinones(twinone));
 		model.addAttribute("unassignedCategories", twintwoSrv.getUnassignedTwinones(twinone));
 //		return "redirect:/store/twinone/" + id;
-		return "redirect:/twinone/" + id;
+//		return "redirect:/twinone/" + id;
+		return "redirect:/twinone/" + id + "/edit";
 	}
 	
 	// this is JRF method to remove instance of a cat-pro join record from the twinone. 
@@ -245,7 +254,8 @@ public class TwinoneCtl {
 		
 		if (originPath == 1) {
 //			return "redirect:/store/twinone/" + twinoneId;
-			return "redirect:/twinone/" + twinoneId;
+//			return "redirect:/twinone/" + twinoneId;
+			return "redirect:/twinone/" + twinoneId + "/edit";
 		} else {
 //			return "redirect:/store/twintwo/" + twintwoId;
 			return "redirect:/twintwo/" + twintwoId;

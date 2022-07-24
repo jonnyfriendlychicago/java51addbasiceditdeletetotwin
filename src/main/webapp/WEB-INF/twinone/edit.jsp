@@ -24,6 +24,8 @@
 				<form:input type="hidden" value="${twinone.id}" path="id" />
 				
 				<%-- <form:input type="hidden" value="${twinone.userMdl.id}" path="userMdl" /> --%>
+				
+				<%-- <form:input type="hidden" value="${assignedCategories}" path="twintwoMdl" /> --%>
 		
 				<div class="form-group">
 					<form:label path="twinoneName" for="twinoneName">twinoneName</form:label>
@@ -77,7 +79,7 @@
 					<tr>
 						<th scope="col">id</th>
 						<th scope="col">twintwoName</th>
-						<!-- <th scope="col">actions</th> -->
+						<th scope="col">actions</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -85,7 +87,7 @@
 						<tr>
 							<td>${record.id}</td>
 							<td><a href="/twintwo/${record.id}">${record.twintwoName}</a></td>
-<%-- 								
+ 								
 							<td>
 								<form action="/removeTwinoneTwintwoJoin" method="post">
 								    
@@ -97,14 +99,14 @@
 								    <button class="btn btn-danger">Delete</button>
 								</form>
 							</td>
---%>
+
 						</tr>
 					</c:forEach>
 				</tbody>
 			</table>
 		</div>
 
-<%-- 
+
 		<div id=form class="card">
 			<h2>Add a Twintwo:</h2>
 			<form action='/twinone/${twinone.id}' method='post' >
@@ -121,7 +123,6 @@
  				<button type="submit" class="btn btn-primary">Add</button>
 			</form>
 		</div>
-	 --%>
 	</div>
  
  	<jsp:include page="/WEB-INF/include/footer.jsp"/>
