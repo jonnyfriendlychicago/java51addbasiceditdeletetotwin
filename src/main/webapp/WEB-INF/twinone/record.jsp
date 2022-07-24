@@ -8,12 +8,14 @@
 	<jsp:include page="/WEB-INF/include/header.jsp" />
 	
 	<div id=pageHeader class="container-fluid">
-		<h2>Store Management</h2>
+		<h2>Twinone Management</h2>
 	</div>
 	
 	<div id=main class="card">
-		<h3><c:out value="${twinone.twinoneName}"></c:out></h3>
-		
+		<div id="recordHeader"> 
+			<h3><c:out value="${twinone.twinoneName}"></c:out></h3>
+			<a href= "/twinone/${twinone.id}/edit"><button class="btn btn-primary">Edit</button></a>
+		</div>
 		<div id=about class="card">
 			<%-- <h4>id: <c:out value="${publication.id}"></c:out></h4> --%>
 			
@@ -61,8 +63,10 @@
 						 --%>
 		</div>
 		
+		
+		
 		<div id=list class="card">
-			<h3>Twintwo List for this Twinone</h3>
+			<h3>Twintwo List</h3>
 <%-- 			
 			<c:choose>
 				<c:when test="${mgmtPermissionErrorMsg != null}">

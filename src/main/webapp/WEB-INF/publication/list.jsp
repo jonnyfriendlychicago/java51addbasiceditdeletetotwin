@@ -20,7 +20,7 @@
 				<c:otherwise></c:otherwise>
 			</c:choose>
 			
-			<table class="table table-striped">
+			<table class="table table-striped table-dark table-hover">
 				<thead>
 					<tr>
 						<th scope="col">id</th>
@@ -42,12 +42,20 @@
 								<div class="buttonArrange1"> 
 									<c:choose>
 										<c:when test="${user.id == record.userMdl.id }">
-											<a href= "/publication/${record.id}/edit"><button class="btn btn-secondary">Edit</button></a>
+											<a href= "/publication/${record.id}/edit"><button class="btn btn-secondary">Edit (below)</button></a>
 										</c:when>
 										<c:otherwise>
 										</c:otherwise>
 									</c:choose> 
 
+									<c:choose>
+										<c:when test="${user.id == record.userMdl.id }">
+											<a href= "/publication/${record.id}/editfocus"><button class="btn btn-secondary">Edit (focused view)</button></a>
+										</c:when>
+										<c:otherwise>
+										</c:otherwise>
+									</c:choose> 
+									
 									<c:choose>
 										<c:when test="${user.id == record.userMdl.id }">
 											<form action="/publication/${record.id}" method="post">

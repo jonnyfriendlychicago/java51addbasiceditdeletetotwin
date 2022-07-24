@@ -127,6 +127,12 @@ a:active {
   font-family: "Roboto", sans-serif; 
 } */
 
+
+#recordHeader {
+	display: flex;
+	justify-content: space-between;
+}
+
 .textAreaReadOut {
 	font-family: "Roboto", sans-serif;
 	white-space: pre-wrap;
@@ -137,12 +143,12 @@ a:active {
 } */
 
 #main {
-	width: 50rem;
+	width: 60rem;
 	padding: 1rem; 
 }
 
 
 #about {
-	width: 18rem;
+	width: 58rem;
 	padding: 1rem; 
 }

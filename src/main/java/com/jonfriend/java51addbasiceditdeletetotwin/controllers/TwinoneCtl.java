@@ -82,7 +82,7 @@ public class TwinoneCtl {
 		}
 	}
 	
-	// view/manage one twinone
+	// view one twinone
 //	@GetMapping("/store/twinone/{id}")
 	@GetMapping("/twinone/{id}")
 	public String showTwinone(
@@ -108,10 +108,87 @@ public class TwinoneCtl {
 		return "twinone/record.jsp";
 	}
 	
-	// process edits to that one twinone
+	// render edit twinone page
+	@GetMapping("/twinone/{id}/edit")
+	public String editTwinone(
+			@PathVariable("id") Long twinoneId
+			, Model model
+			, HttpSession session
+			) {
+		
+		// If no userId is found in session, redirect to logout.  JRF: put this on basically all methods now, except the login/reg pages
+		if(session.getAttribute("userId") == null) {return "redirect:/logout";}
+
+		// We get the userId from our session (we need to cast the result to a Long as the 'session.getAttribute("userId")' returns an object
+		Long userId = (Long) session.getAttribute("userId");
+		model.addAttribute("user", userSrv.findById(userId));
+		
+		// pre-populates the values in the management interface
+		TwinoneMdl intVar = twinoneSrv.findById(twinoneId);
+		
+		model.addAttribute("twinone", intVar);
+		model.addAttribute("assignedCategories", twintwoSrv.getAssignedTwinones(intVar));
+		model.addAttribute("unassignedCategories", twintwoSrv.getUnassignedTwinones(intVar));
+		
+		// records in 'manage-one' interface dropdown
+//		List<DojoMdl> intVar3 = dojoSrvIntVar.returnAll();
+//		model.addAttribute("dojoList", intVar3); 
+		
+		return "twinone/edit.jsp";
+	}
+	
+	// edit record: finalize/save it (or get kicked back b/c errors)
+	@PostMapping("/twinone/{id}/edit")
+	public String PostTheEditTwinone(
+			@Valid 
+			@ModelAttribute("twinone") TwinoneMdl twinoneMdl 
+			, BindingResult result
+			, Model model
+			, @PathVariable("id") Long twinoneId // out CadenJon
+			, HttpSession session
+			, RedirectAttributes redirectAttributes
+			) {
+		
+		// If no userId is found in session, redirect to logout.  JRF: put this on basically all methods now, except the login/reg pages
+		if(session.getAttribute("userId") == null) {return "redirect:/logout";}
+		
+		// trying here to stop someone from forcing this method when not creator; was working, now no idea.... sigh 7/19 2pm
+		// Long userId = (Long) session.getAttribute("userId"); 
+		// PublicationMdl intVar = twinoneSrv.findById(twinoneId);
+		
+		// System.out.println("in the postMapping for edit..."); 
+		// System.out.println("intVar.getUserMdl().getId(): " + intVar.getUserMdl().getId()); 
+		// System.out.println("userId: " + userId); 
+		
+//		if(intVar.getUserMdl().getId() != userId) {
+//			redirectAttributes.addFlashAttribute("mgmtPermissionErrorMsg", "Only the creator of a record can edit it.");
+//			return "redirect:/publication";
+//		}
+		
+		if (result.hasErrors()) { 
+		
+            Long userId = (Long) session.getAttribute("userId");
+            model.addAttribute("user", userSrv.findById(userId));
+            
+            // pre-populates the values in the management interface
+            TwinoneMdl intVar = twinoneSrv.findById(twinoneId);
+            
+            // model.addAttribute("twinone", intVar);
+            model.addAttribute("assignedCategories", twintwoSrv.getAssignedTwinones(intVar));
+            model.addAttribute("unassignedCategories", twintwoSrv.getUnassignedTwinones(intVar));
+
+			return "twinone/edit.jsp";
+		} else {
+			twinoneSrv.update(twinoneMdl);
+			return "redirect:/twinone/" + twinoneId;
+		}
+	}
+	
+	// process new joins for that one twinone
 //	@PostMapping("/store/twinone/{id}")
 	@PostMapping("/twinone/{id}")
-	public String editTwinone(
+//	public String editTwinone(
+	public String postTwinoneTwintwoJoin(
 			@PathVariable("id") Long id
 			, @RequestParam(value="twintwoId") Long catId // requestParam is only used with regular HTML form 
 			,  Model model
@@ -130,7 +207,7 @@ public class TwinoneCtl {
 		
 		twinone.getTwintwoMdl().add(twintwo);
 		
-		twinoneSrv.updateTwinone(twinone);
+		twinoneSrv.update(twinone);
 		
 		model.addAttribute("assignedCategories", twintwoSrv.getAssignedTwinones(twinone));
 		model.addAttribute("unassignedCategories", twintwoSrv.getUnassignedTwinones(twinone));
@@ -145,7 +222,7 @@ public class TwinoneCtl {
 	
 //    @DeleteMapping("/store/removeTwinoneTwintwoJoin")
 	@DeleteMapping("/removeTwinoneTwintwoJoin")
-    public String whackProdCatJoin(
+    public String whackTwinoneTwintwoJoin(
 //    		@PathVariable("publicationId") Long publicationId
     		@RequestParam(value="twintwoId") Long twintwoId // requestParam is only used with regular HTML form
     		, @RequestParam(value="twinoneId") Long twinoneId // requestParam is only used with regular HTML form

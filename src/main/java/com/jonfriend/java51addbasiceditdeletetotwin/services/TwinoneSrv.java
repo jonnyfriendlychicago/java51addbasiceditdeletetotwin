@@ -23,7 +23,8 @@ public class TwinoneSrv {
 	}
 
 	// updates one twinone >> rename as update
-	public TwinoneMdl updateTwinone(TwinoneMdl x) {
+//	public TwinoneMdl updateTwinone(TwinoneMdl x) {
+	public TwinoneMdl update(TwinoneMdl x) {
 		return twinoneRpo.save(x);
 	}
 	

@@ -212,6 +212,41 @@ public class PublicationCtl {
 		return "publication/edit.jsp";
 	}
 	
+// start edit-focus method
+	
+	// display list while editting a record
+	// edit record: initiate it!
+	@GetMapping("/publication/{publicationId}/editfocus")
+	public String publicationEditFocus(
+			@PathVariable("publicationId") Long publicationId
+			, Model model
+			, HttpSession session
+			) {
+		
+		// If no userId is found in session, redirect to logout.  JRF: put this on basically all methods now, except the login/reg pages
+		if(session.getAttribute("userId") == null) {return "redirect:/logout";}
+
+		// We get the userId from our session (we need to cast the result to a Long as the 'session.getAttribute("userId")' returns an object
+		Long userId = (Long) session.getAttribute("userId");
+		model.addAttribute("user", userSrv.findById(userId));
+
+		// records in table
+		List<PublicationMdl> intVar1 = publicationSrv.returnAll();
+		model.addAttribute("publicationList", intVar1); 
+		
+		// pre-populates the values in the 'manage-one' interface
+		PublicationMdl intVar2 = publicationSrv.findById(publicationId); 
+		model.addAttribute("publication", intVar2);  
+		
+		// records in 'manage-one' interface dropdown
+//		List<DojoMdl> intVar3 = dojoSrvIntVar.returnAll();
+//		model.addAttribute("dojoList", intVar3); 
+		
+		return "publication/editfocus.jsp";
+	}
+	
+// end edit-focus mtd
+	
 	// edit record: finalize/save it (or get kicked back b/c errors)
 	@PostMapping("/publication/{publicationId}/edit")
 	public String publicationEdit(
@@ -230,10 +265,15 @@ public class PublicationCtl {
 		// trying here to stop someone from forcing this method when not creator; was working, now no idea.... sigh 7/19 2pm
 		Long userId = (Long) session.getAttribute("userId"); 
 		PublicationMdl intVar = publicationSrv.findById(publicationId);
-		if(intVar.getUserMdl().getId() != userId) {
-			redirectAttributes.addFlashAttribute("mgmtPermissionErrorMsg", "Only the creator of a record can edit it.");
-			return "redirect:/publication";
-		}
+		
+		System.out.println("in the postMapping for edit..."); 
+		System.out.println("intVar.getUserMdl().getId(): " + intVar.getUserMdl().getId()); 
+		System.out.println("userId: " + userId); 
+		
+//		if(intVar.getUserMdl().getId() != userId) {
+//			redirectAttributes.addFlashAttribute("mgmtPermissionErrorMsg", "Only the creator of a record can edit it.");
+//			return "redirect:/publication";
+//		}
 		
 		if (result.hasErrors()) { 
 			

@@ -11,7 +11,10 @@
 	</div>
 	
 	<div id=main class="card">
-		<h3><c:out value="${twintwo.twintwoName}"></c:out></h3>
+		<div id="recordHeader"> 
+			<h3><c:out value="${twintwo.twintwoName}"></c:out></h3>
+			<a href= "/twintwo/edit"><button class="btn btn-primary">Edit</button></a>
+		</div>
 		<div id=about class="card">
 			<%-- <h4>id: <c:out value="${publication.id}"></c:out></h4> --%>
 			
@@ -69,7 +72,7 @@
 				<c:otherwise></c:otherwise>
 			</c:choose> 
 --%>
-			<table class="table table-striped table-dark">
+			<table class="table table-striped table-dark table-hover">
 				<thead>
 					<tr>
 						<th scope="col">id</th>

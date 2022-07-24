@@ -12,56 +12,7 @@
 	</div>
 	
 	<div id=main class="container-fluid">
-		<div id=list class="container-fluid">
-			<table class="table table-striped">
-				<thead>
-					<tr>
-						<th scope="col">id</th>
-						<th scope="col">pubTitle</th>
-						<th scope="col">pubAuthor</th>
-						<!-- <th scope="col">Dojo</th> -->
-						<th scope="col">Created By</th>
-						<th scope="col">actions</th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:forEach var="record" items="${publicationList}">
-						<tr>
-							<td>${record.id}</td>
-							<td><a href="/publication/${record.id}">${record.pubTitle}</a></td>
-							<td>${record.pubAuthor}</td>
-							<td>${record.userMdl.userName} </td>
-							<td>
-								<div class="buttonArrange1"> 
-<%-- 
-									<c:choose>
-										<c:when test="${user.id == record.userMdl.id }">
-											<a href= "/publication/${record.id}/edit"><button class="btn btn-secondary">Edit</button></a>
-										</c:when>
-										<c:otherwise>
-										</c:otherwise>
-									</c:choose> 
- 								
- 									<c:choose>
-										<c:when test="${user.id == record.userMdl.id }">
-											<form action="/publication/${record.id}" method="post">
-											    <input type="hidden" name="_method" value="delete">
-											    <button class="btn btn-danger">Delete</button>
-											</form>
-										</c:when>
-										<c:otherwise>
-										</c:otherwise>
-									</c:choose>
---%>
-								</div>
-							</td>
-							
-						</tr>
-					</c:forEach>
-				</tbody>
-			</table>
-		</div>
- 
+	
 		<div id=form class="container-fluid">
 			<h2>Edit Publication</h2>
 	
